@@ -7,6 +7,9 @@ How to make a [GEMINI](https://gemini.readthedocs.io/en/latest/) database in for
 - That the VEP installation path is `/data/ensembl-vep`
 - That the VEP plugin installation path is `/data/ensembl-vep/Plugins`
 - The path to the spliceAI files is `/data/ensembl-vep/Plugins/splice_ai`
+- This workflow has been tested with VEP v103. 
+- You're using the cache option for VEP
+- 
 
 ## Quick Start Guide
 1. Install GEMINI following this [guide](https://gemini.readthedocs.io/en/latest/content/installation.html). On a Nimbus VM, it is better to specify a custom install location in your `/data` partition so that your `/root` partition does not run out of space. It is not necessary to download the CADD or gerp scores because GEMINI will not be used to create the database. The database creation step will be performed using vcf2db, as decribed below. 
@@ -31,7 +34,6 @@ How to make a [GEMINI](https://gemini.readthedocs.io/en/latest/) database in for
   - tabix
   - cpanm
 
-
 ## VEP Plugins
 
 | Plugin name | Data files |
@@ -42,3 +44,7 @@ How to make a [GEMINI](https://gemini.readthedocs.io/en/latest/) database in for
 | Custom gnomAD annotations | gnomad.genomes.r2.1.1.sites.liftover_grch38.vcf.bgz |
 | Reference quality | sorted_GRCh38_quality_mergedfile.gff3.gz |
 | Clinvar | clinvar.vcf.gz |
+
+## Addtional info
+- See the VEP guide to faster runtime [here](http://asia.ensembl.org/info/docs/tools/vep/script/vep_other.html#faster)
+- For faster runtime, install [Set::IntervalTree](http://search.cpan.org/~benbooth/Set-IntervalTree/lib/Set/IntervalTree.pm) and [Ensembl::XS](https://github.com/Ensembl/ensembl-xs)
