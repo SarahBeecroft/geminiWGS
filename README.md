@@ -11,26 +11,25 @@ How to make a [GEMINI](https://gemini.readthedocs.io/en/latest/) database in for
 ## Quick Start Guide
 1. Install GEMINI following this [guide](https://gemini.readthedocs.io/en/latest/content/installation.html). On a Nimbus VM, it is better to specify a custom install location in your `/data` partition so that your `/root` partition does not run out of space. It is not necessary to download the CADD or gerp scores because GEMINI will not be used to create the database. The database creation step will be performed using vcf2db, as decribed below. 
 2. Install VEP https://asia.ensembl.org/info/docs/tools/vep/script/vep_download.html
-3. Install VEP plugins and download their data LIST OF DEPS HERE
+3. Install VEP plugins and download their data. A list of previously used plugins is listed below. The data files for these are available on IRDS. 
 4. Install VT using the guide [here](https://genome.sph.umich.edu/wiki/Vt#General)
 5. Clone this repository to your `/data` partition with ` git clone https://github.com/SarahBeecroft/geminiWGS.git`
 6. Make the scripts executable by doing the following:
-  ```
-  cd geminiWGS
-  chmod 777 *.sh
-  ```
+    ```
+    cd geminiWGS
+    chmod 777 *.sh
+    ```
 7. To run the gemini annotation do `./norm_VEP_DB.sh filename` where filename is the prefix/basename of your cohort VCF (e.g. a file called WGS_2021.vcf would have the prefix/basename of WGS_2021). ENSURE this step is performed within a `screen` or `tmux` session because it will take a minimum of 24 hours to run. This script normalises your VCF with VT, annotates it with VEP, and creates a GEMINI database. It is worthwhile keeping the intermediate files for a period (a normalised cohort VCF and a normalised annotated VCF) in case you need to go back and change something for some reason. 
 
 ## Dependencies
-  - updated loader, required to import hg38 data into a GEMINI database https://github.com/quinlan-lab/vcf2db
-  - python 3
+  - Updated loader, required to import hg38 data into a GEMINI database https://github.com/quinlan-lab/vcf2db
+  - Python 3
   - GEMINI
-  - VEP
-  - VEP plugins
-  - VEP plugin data
+  - VEP, VEP plugins, VEP plugin data
   - vt https://genome.sph.umich.edu/wiki/Vt
   - bgzip
   - tabix
+  - cpanm
 
 
 ## VEP Plugins
