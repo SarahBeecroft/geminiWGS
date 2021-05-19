@@ -9,7 +9,6 @@ How to make a [GEMINI](https://gemini.readthedocs.io/en/latest/) database in for
 - The path to the spliceAI files is `/data/ensembl-vep/Plugins/splice_ai`
 - This workflow has been tested with VEP v103. 
 - You're using the cache option for VEP
-- 
 
 ## Quick Start Guide
 1. Install GEMINI following this [guide](https://gemini.readthedocs.io/en/latest/content/installation.html). On a Nimbus VM, it is better to specify a custom install location in your `/data` partition so that your `/root` partition does not run out of space. It is not necessary to download the CADD or gerp scores because GEMINI will not be used to create the database. The database creation step will be performed using vcf2db, as decribed below. 
