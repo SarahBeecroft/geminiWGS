@@ -31,4 +31,4 @@ perl /data/ensembl-vep/vep \
 --plugin ReferenceQuality,/data/ensembl-vep/Plugins/sorted_GRCh38_quality_mergedfile.gff3.gz \
 |  bgzip -c > $INPUT_BASENAME.norm.VEP.vcf.gz && tabix -p $INPUT_BASENAME.norm.VEP.vcf.gz
 
-python3 /usr/local/bin/vcf2db.py wgs_four_hg38.norm.VEP.vcf.gz wgs_four_hg38.ped wgs_hg38_fork.database --expand gt_types --expand gt_ref_depths --expand gt_alt_depths --expand gt_depths --expand gt_quals
+python3 /usr/local/bin/vcf2db.py $INPUT_BASENAME.norm.VEP.vcf.gz $INPUT_BASENAME.ped $INPUT_BASENAME.database --expand gt_types --expand gt_ref_depths --expand gt_alt_depths --expand gt_depths --expand gt_quals
