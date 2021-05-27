@@ -1,15 +1,20 @@
 #!/bin/bash
-DATABASE=wes_hg38_fork.database
-PROBAND=D19_1978
-MUM=D19_0030
-DAD=D19_0200
-gemini query \
-    -q "select gene, qual, chrom, start, end, ref, alt, codon_change, aa_change, aa_length, impact, impact_severity, transcript, \
+
+FAMILY=14220
+DATABASE=wes_hg38.database
+PROBAND=D18_0398 
+AFF_PARENT=D18_0389
+UNAFF_PARENT=D18_0394
+
+gemini query -q \
+        "select gene, qual, chrom, start, end, ref, alt, codon_change, aa_change, aa_length, impact, impact_severity, transcript, HGVSc, HGVSp, \
         exon,\
         intron, \
         type, \
         cDNA_position, \
         CADD_PHRED, \
+        polyphen_pred, \
+        sift_pred, \
         Loftool, \
         SpliceAI_pred_DP_AG, \
         SpliceAI_pred_DP_AL, \
@@ -21,23 +26,11 @@ gemini query \
         SpliceAI_pred_DS_DL, \
         SpliceAI_pred_SYMBOL, \
         gnomADg, \
-        MAX_AF, \
-        MAX_AF_POPS, \
-        gnomAD_AF, \
         gnomADg_AF, \
-        gnomADg_AF_popmax, \
+        gnomADg_AN, \
+        gnomADg_AC, \
+        gnomADg_AF_popmax,  gnomAD_AFR_AF, gnomAD_AMR_AF, gnomAD_ASJ_AF, gnomAD_EAS_AF, gnomAD_FIN_AF, gnomAD_NFE_AF, gnomAD_OTH_AF, gnomAD_SAS_AF, \
         gnomADg_nhomalt, \
-        gnomAD_AFR_AF, \
-        gnomAD_AMR_AF, \
-        gnomAD_ASJ_AF, \
-        gnomAD_EAS_AF, \
-        gnomAD_FIN_AF, \
-        gnomAD_NFE_AF, \
-        gnomAD_OTH_AF, \
-        gnomAD_SAS_AF, \
-        num_hom_ref, \
-        num_het, \
-        num_hom_alt, \
         ensembl_gene_id, \
         transcript, \
         is_exonic, \
@@ -46,8 +39,6 @@ gemini query \
         is_splicing, \
         is_canonical, \
         biotype, \
-        polyphen_pred, \
-        sift_pred, \
         ensp, \
         swissprot, \
         domains, \
@@ -57,41 +48,22 @@ gemini query \
         PHENO, \
         CLIN_SIG, \
         Clinvar, \
-        ClinVar_ALLELEID, \
-        ClinVar_CLNSIG, \
-        ClinVar_CLNREVSTAT, \
-        ClinVar_CLNDN, \
-        ClinVar_CLNDISDB, \
-        ClinVar_CLNDNINCL, \
-        ClinVar_CLNDISDBINCL, \
-        ClinVar_CLNHGVS, \
-        ClinVar_CLNSIGCONF, \
-        ClinVar_CLNSIGINCL, \
-        ClinVar_CLNVC, \
-        ClinVar_CLNVCSO, \
-        ClinVar_CLNVI, \
-        ClinVar_DBVARID, \
-        ClinVar_GENEINFO, \
-        ClinVar_MC, \
-        ClinVar_ORIGIN, \
-        ClinVar_RS, \
-        ClinVar_SSR, \
-        PUBMED, \
-        gt_types, \
-        gt_depths, \
-        gt_ref_depths, \
-        gt_alt_freqs, \
         gt_depths.$PROBAND, \
         gt_ref_depths.$PROBAND, \
-        gt_alt_depths.$PROBAND \
-        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01) and impact_severity !='LOW'" \
+        gt_alt_depths.$PROBAND, \
+        gt_depths.$AFF_PARENT, \
+        gt_ref_depths.$AFF_PARENT, \
+        gt_alt_depths.$AFF_PARENT, \
+        gt_depths.$UNAFF_PARENT, \
+        gt_ref_depths.$UNAFF_PARENT, \
+        gt_alt_depths.$UNAFF_PARENT \
+        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
+        (gt_types.$UNAFF_PARENT != HET) and (gt_types.$UNAFF_PARENT != HOM_ALT) and \
+        (gt_types.$AFF_PARENT == HET) and (gt_types.$UNAFF_PARENT != HOM_ALT) and \
+        (gt_types).(family_id != '$FAMILY').(==HET).(count<=4) and \
+        (gt_types).(family_id != '$FAMILY').(==HOM_ALT).(count<=1)" \
         --show-samples \
         --sample-delim ";" \
-        --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
-        (gt_types.$MUM == HET) and (gt_types.$MUM != HOM_ALT) and \
-        (gt_types.$DAD != HET) and (gt_types.$DAD != HOM_ALT) and \
-        (gt_types).(*).(==HET).(count<=4) and \
-        (gt_types).(*).(==HOM_ALT).(count<=1)" \
         --header \
-       $DATABASE
-    
+         $DATABASE
