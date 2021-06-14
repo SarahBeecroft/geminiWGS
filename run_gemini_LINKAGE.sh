@@ -53,7 +53,7 @@ gemini query --region $region -q \
         Clinvar, \
         gt_depths.$PATIENT1, gt_ref_depths.$PATIENT1, gt_alt_depths.$PATIENT1, \
         gt_depths.$PATIENT2, gt_ref_depths.$PATIENT2, gt_alt_depths.$PATIENT2 \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
        --show-samples \
        --sample-delim ";" \
        --gt-filter "(gt_types.$PATIENT1 != HOM_REF) and (gt_depths.$PATIENT1 >= 10) and \
