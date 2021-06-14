@@ -53,7 +53,7 @@ gemini query -q \
         CLIN_SIG, \
         Clinvar, \
         gt_depths.$PROBAND, gt_ref_depths.$PROBAND, gt_alt_depths.$PROBAND \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
     --show-samples \
     --sample-delim ";" \
     --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
