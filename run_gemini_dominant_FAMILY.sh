@@ -57,7 +57,7 @@ gemini query -q \
         gt_depths.$UNAFF_PARENT, \
         gt_ref_depths.$UNAFF_PARENT, \
         gt_alt_depths.$UNAFF_PARENT \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
         --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
         (gt_types.$UNAFF_PARENT != HET) and (gt_types.$UNAFF_PARENT != HOM_ALT) and \
         (gt_types.$AFF_PARENT == HET) and (gt_types.$UNAFF_PARENT != HOM_ALT) and \
