@@ -49,7 +49,7 @@ gemini query -q \
         gt_depths.$PROBAND, \
         gt_ref_depths.$PROBAND, \
         gt_alt_depths.$PROBAND \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
     --show-samples \
     --sample-delim ";" \
     --gt-filter "(gt_types.$PROBAND == HOM_ALT) and (gt_alt_depths.$PROBAND >= 10) and \
