@@ -29,6 +29,6 @@ perl /data/ensembl-vep/vep \
 --plugin SpliceAI,snv=/data/ensembl-vep/Plugins/splice_ai/spliceai_scores.raw.snv.hg38.vcf.gz,indel=/data/ensembl-vep/Plugins/splice_ai/spliceai_scores.raw.indel.hg38.vcf.gz \
 --plugin LoFtool,/data/ensembl-vep/Plugins/LoFtool_scores.txt \
 --plugin ReferenceQuality,/data/ensembl-vep/Plugins/sorted_GRCh38_quality_mergedfile.gff3.gz \
-|  bgzip -c > $INPUT_BASENAME.norm.VEP.vcf.gz && tabix -p $INPUT_BASENAME.norm.VEP.vcf.gz
+|  bgzip -c > $INPUT_BASENAME.norm.VEP.vcf.gz && tabix -p vcf $INPUT_BASENAME.norm.VEP.vcf.gz
 
 python3 /usr/local/bin/vcf2db.py $INPUT_BASENAME.norm.VEP.vcf.gz $INPUT_BASENAME.ped $INPUT_BASENAME.database --expand gt_types --expand gt_ref_depths --expand gt_alt_depths --expand gt_depths --expand gt_quals
