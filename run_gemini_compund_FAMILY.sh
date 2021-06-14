@@ -60,7 +60,7 @@ gemini query -q \
         gt_depths.$DAD, \
         gt_ref_depths.$DAD, \
         gt_alt_depths.$DAD \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
     --show-samples \
     --sample-delim ";" \
     --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
@@ -121,7 +121,7 @@ gemini query -q \
         gt_depths.$DAD, \
         gt_ref_depths.$DAD, \
         gt_alt_depths.$DAD \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.01) and (gnomADg_AF_popmax >= 0.01)" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.01) and (gnomADg_AF_popmax <= 0.01)" \
     --show-samples \
     --sample-delim ";" \
     --gt-filter "(gt_types.$PROBAND == HET) and (gt_alt_depths.$PROBAND >=5) and \
@@ -149,4 +149,4 @@ cat s1 \
     | sort -k1,1 -g \
     | cat header.txt | cat - s1 > temp && mv temp $PROBAND.compoundFAM.txt
 #delete intermediate files
-#rm comm t1 t2 parent1.txt parent2.txt s1
+rm comm t1 t2 parent1.txt parent2.txt s1
