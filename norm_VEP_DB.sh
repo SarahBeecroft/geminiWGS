@@ -21,7 +21,7 @@ perl /data/ensembl-vep/vep \
 -i $INPUT_BASENAME.norm.vcf \
 -o stdout \
 --everything \
---fork 14 \
+--fork 10 \
 --custom /data/ensembl-vep/Plugins/clinvar.vcf.gz,ClinVar,vcf,exact,0,ALLELEID,CLNSIG,CLNREVSTAT,CLNDN,CLNDISDB,CLNDNINCL,CLNDISDBINCL,CLNHGVS,CLNSIGCONF,CLNSIGINCL,CLNVC,CLNVCSO,CLNVI,DBVARID,GENEINFO,MC,ORIGIN,RS,SSR \
 --custom /data/ensembl-vep/Plugins/gnomad.genomes.r2.1.1.sites.liftover_grch38.vcf.bgz,gnomADg,vcf,exact,0,AC,AF,AF_popmax,AN,nhomalt \
 --dir_plugins /data/ensembl-vep/Plugins \
