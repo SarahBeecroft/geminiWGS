@@ -45,7 +45,7 @@ gemini query -q \
         PHENO, \
         CLIN_SIG, \
         Clinvar \
-        from variants where qual >=100 and (MAX_AF_POPS >= 0.1) and (gnomADg_AF_popmax >= 0.1) and gene='$GENE'" \
+        from variants where qual >=100 and (MAX_AF_POPS <= 0.1) and (gnomADg_AF_popmax <= 0.1) and gene='$GENE'" \
     --sample-delim ";" \
     --show-samples \
     --header \
